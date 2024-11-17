@@ -14,18 +14,19 @@ const createWindow = () => {
         //如果不添加，则使用的是默认的图标
         icon: join(__dirname,'../public/vite.svg'),
         webPreferences: {
+            webSecurity: false,
             preload: path.join(__dirname, './preload.js')
         }
     })
 
     // win.loadURL('http://localhost:3000')
     // development模式
-    if(process.env.VITE_DEV_SERVER_URL) {
+    if(process.env.isDev && process.env.VITE_DEV_SERVER_URL) {
         win.loadURL(process.env.VITE_DEV_SERVER_URL).then()
         // 开启调试台
         win.webContents.openDevTools()
     }else {
-        win.loadFile('dist/index.html').then()
+        win.loadFile('dist/index.html')
     }
 }
 
@@ -36,9 +37,11 @@ app.whenReady().then(async () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow()
     })
 
-    await session.defaultSession.loadExtension(
-        path.resolve(__dirname, "./devtools")
-    );
+    if (process.env.isDev) {
+        await session.defaultSession.loadExtension(
+            path.resolve(__dirname, "./devtools")
+        );
+    }
 })
 
 app.on('window-all-closed', () => {

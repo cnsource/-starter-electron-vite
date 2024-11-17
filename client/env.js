@@ -1,11 +1,10 @@
 const { EnvDev } = require("./env/env.dev")
 const { EnvProd } = require("./env/env.prod")
 
-const env = EnvDev;
-
 process.env = {
+    isDev: false,
     ...process.env,
-    ...env
+    ...(process.env.isDev ? EnvDev : EnvProd)
 }
 
-exports.env = env
+exports.env = process.env.isDev ? EnvDev : EnvProd;
