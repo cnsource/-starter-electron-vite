@@ -39,7 +39,7 @@ app.whenReady().then(async () => {
 
     if (process.env.isDev) {
         await session.defaultSession.loadExtension(
-            path.resolve(__dirname, "./devtools")
+            path.resolve(__dirname, "../devtools")
         );
     }
 })
