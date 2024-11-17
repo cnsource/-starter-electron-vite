@@ -1,7 +1,6 @@
-const { ipcMain } = require('electron')
+const { ipcMain } = require("electron");
 
-exports.writeContentToFile = "writeContentToFile"
-ipcMain.on("writeContentToFile", (event, [filePath, content]) => {
+ipcMain.on("fs:writeContentToFile", (event, filePath, content) => {
     const fs = require('fs');
     const path = require('path');
 

@@ -3,7 +3,8 @@ const { app, BrowserWindow, session } = require('electron')
 const { join } = require('path')
 const path = require('node:path')
 require('./env')
-require('./ipcMain/index')
+require('./native/fs')
+
 
 // 创建浏览器窗口时，调用这个函数。
 const createWindow = () => {
@@ -13,7 +14,7 @@ const createWindow = () => {
         //如果不添加，则使用的是默认的图标
         icon: join(__dirname,'../public/vite.svg'),
         webPreferences: {
-            preload: path.join(__dirname, './preload/preload.js')
+            preload: path.join(__dirname, './preload.js')
         }
     })
 

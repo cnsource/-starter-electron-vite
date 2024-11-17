@@ -1,11 +1,16 @@
 <script setup>
-import { ref } from 'vue'
+  import { ref, watch } from 'vue'
 
 defineProps({
   msg: String,
 })
 
 const count = ref(0)
+
+watch(count, ()=> {
+  nativeApi.send("fs:writeContentToFile", ["./temp/ax.txt", "hello world"])
+})
+
 </script>
 
 <template>
